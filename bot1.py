@@ -1,4 +1,5 @@
 import telebot
+import requests
 
 bot = telebot.TeleBot("5677656640:AAEJyEMn7vK2bklqsxN1g54B2XTraZX1UHw", parse_mode=None)
 
@@ -8,10 +9,18 @@ def send_welcome(message):
 
 
 
-content_types=["text"]
-
-@bot.message_handler(content_types)
+@bot.message_handler(content_types=["text", "sticker"])
 def function_name(message):
-	bot.reply_to(message, "Это обработчик сообщений")
+	
+	text = message.text
+	
+	if "привет" in text.lower():
+		bot.reply_to(message, f"Привет, {message.from_user.first_name}! Чтобы узнать погоду, введите слово 'погода'")
 
+	elif "погода" in text.lower():
+		weather=requests.get("https://wttr.in/?0T")
+		bot.reply_to(message, weather.text)	
+
+	
 bot.polling(non_stop=True, interval=1)
+
