@@ -1,7 +1,7 @@
 import telebot
 import requests
 
-bot = telebot.TeleBot("5677656640:AAEJyEMn7vK2bklqsxN1g54B2XTraZX1UHw", parse_mode=None)
+bot = telebot.TeleBot("токен", parse_mode=None)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
